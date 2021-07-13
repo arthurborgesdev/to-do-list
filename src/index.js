@@ -1,33 +1,33 @@
 import './style.css';
 
-import '@fortawesome/fontawesome-free/js/fontawesome'
-import '@fortawesome/fontawesome-free/js/solid'
-import '@fortawesome/fontawesome-free/js/regular'
-import '@fortawesome/fontawesome-free/js/brands'
+import '@fortawesome/fontawesome-free/js/fontawesome.js';
+import '@fortawesome/fontawesome-free/js/solid.js';
+import '@fortawesome/fontawesome-free/js/regular.js';
+import '@fortawesome/fontawesome-free/js/brands.js';
 
 const todo = [
   {
-    description: "Finish watching S.H.I.E.L.D season 2",
+    description: 'Finish watching S.H.I.E.L.D season 2',
     completed: false,
-    index: 0
+    index: 0,
   },
   {
-    description: "Win the Indigo League in Pokémon Yellow",
+    description: 'Win the Indigo League in Pokémon Yellow',
     completed: false,
-    index: 1
+    index: 1,
   },
   {
-    description: "Finish the course about NodeJS in Udemy",
+    description: 'Finish the course about NodeJS in Udemy',
     completed: false,
-    index: 2
-  }
-]
+    index: 2,
+  },
+];
 
 const populateTodos = () => {
-  const sortedTodo = todo.sort((a, b) => a.index - b.index)
+  const sortedTodo = todo.sort((a, b) => a.index - b.index);
 
-  for(let i = 0; i < sortedTodo.length; i += 1) {
-    document.getElementById('todo-list').insertAdjacentHTML('beforeend',`
+  for (let i = 0; i < sortedTodo.length; i += 1) {
+    document.getElementById('todo-list').insertAdjacentHTML('beforeend', `
       <div class="todo-item">
         <div>
           <input type="checkbox" name="item-${sortedTodo[i].index}">
@@ -35,8 +35,8 @@ const populateTodos = () => {
         </div>
         <i class="fas fa-ellipsis-v"></i> 
       </div>
-    `)
+    `);
   }
-}
+};
 
-window.onload = populateTodos()
+window.onload = populateTodos();
