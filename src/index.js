@@ -1,5 +1,10 @@
 import './style.css';
 
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/brands'
+
 const todo = [
   {
     description: "Finish watching S.H.I.E.L.D season 2",
@@ -20,10 +25,10 @@ const todo = [
 
 const populateTodos = () => {
   const sortedTodo = todo.sort((a, b) => a.index - b.index)
-  
+
   for(let i = 0; i < sortedTodo.length; i += 1) {
     document.getElementById('todo-list').insertAdjacentHTML('beforeend',`
-      <div>
+      <div class="todo-item">
         <div>
           <input type="checkbox" name="item-${sortedTodo[i].index}">
           <label for="item-${sortedTodo[i].index}">${sortedTodo[i].description}</label>
