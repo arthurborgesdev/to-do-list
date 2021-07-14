@@ -1,4 +1,6 @@
 import './style.css';
+import { dragHover } from './drag_drop.js';
+import './status_update.js'
 
 import '@fortawesome/fontawesome-free/js/fontawesome.js';
 import '@fortawesome/fontawesome-free/js/solid.js';
@@ -28,15 +30,20 @@ const populateTodos = () => {
 
   for (let i = 0; i < sortedTodo.length; i += 1) {
     document.getElementById('todo-list').insertAdjacentHTML('beforeend', `
-      <div class="todo-item">
+      <div class="todo-item" draggable="true">
         <div>
           <input type="checkbox" name="item-${sortedTodo[i].index}">
           <label for="item-${sortedTodo[i].index}">${sortedTodo[i].description}</label>
         </div>
-        <i class="fas fa-ellipsis-v"></i> 
+        <div class="dots-button">
+          <i class="fas fa-ellipsis-v"></i>
+        </div> 
       </div>
     `);
   }
 };
 
-window.onload = populateTodos();
+window.addEventListener('load', () => {
+  populateTodos();
+  dragHover();
+}); 

@@ -24,6 +24,7 @@ The objective of this exercise so far is to display a list of things to do on th
 
 ## Usage
 
+- Run `npm install` on a Terminal to install the modules
 - Run `npm run build` on a Terminal to build the assets using webpack
 - Run `npm run start` on a Terminal to start the server and look at the result in `localhost:8080`
 
