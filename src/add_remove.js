@@ -34,6 +34,20 @@ export function addTodo(description) {
 }
 
 export function editTodo(item) {
-  console.log(item);
+  let todoIndex = item.getAttribute('for').split('-')[1];
+  let todoDescription = item.innerText;
 
+  updateTodo(todoIndex, todoDescription);
+}
+
+function updateTodo(todoIndex, description) {
+  let currentTodoList = getFromLocalStorage();
+
+  currentTodoList.forEach((item) => {
+    if (item.index === Number(todoIndex) || item.index === todoIndex.toString()) {
+      item.description = description;
+    }
+  });
+
+  setToLocalStorage(currentTodoList);
 }

@@ -56,12 +56,9 @@ document.querySelector('.todo-new > input').addEventListener('keypress', (e) => 
 function addEditHandlers() {
   const todoList = document.getElementsByClassName('todo-item');
   for (let i = 0; i < todoList.length; i += 1) {
-    todoList[i].children[0].children[1].addEventListener('input', (e) => {
-      if (e.target.classList.contains('todo-item')) {
-        editTodo(e.target.children[0].children[1]);
-      } else if(e.target.tagName === 'LABEL') {
-        editTodo(e.target);
-      }
+    let labelElem = todoList[i].children[0].children[1];
+    labelElem.addEventListener('input', () => {
+      editTodo(labelElem);
     });
   }
 }
