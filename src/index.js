@@ -2,28 +2,13 @@ import './style.css';
 import dragAndDrop from './drag_drop.js';
 import { setToLocalStorage, getFromLocalStorage } from './storage.js';
 import statusUpdate from './status_update.js';
+import { addTodo } from './add_remove.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome.js';
 import '@fortawesome/fontawesome-free/js/solid.js';
 import '@fortawesome/fontawesome-free/js/regular.js';
 
-const todo = [
-  {
-    description: 'Finish watching S.H.I.E.L.D season 2',
-    completed: false,
-    index: 0,
-  },
-  {
-    description: 'Win the Indigo League in Pokémon Yellow',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'Finish the course about NodeJS in Udemy',
-    completed: false,
-    index: 2,
-  },
-];
+const todo = [];
 
 const populateTodos = (todo, sort) => {
   let sortedTodo = [];
@@ -59,6 +44,13 @@ const populateTodos = (todo, sort) => {
     `);
   }
 };
+
+document.querySelector('.todo-new > input').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') { 
+    addTodo(e.target.value);
+    e.target.value = "";
+  }
+});
 
 window.addEventListener('load', () => {
   const localStorageList = getFromLocalStorage('todo');
