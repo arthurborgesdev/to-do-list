@@ -1,9 +1,11 @@
 import './style.css';
+import dragAndDrop from './drag_drop.js';
+import { setToLocalStorage, getFromLocalStorage } from './storage.js';
+import statusUpdate from './status_update.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome.js';
 import '@fortawesome/fontawesome-free/js/solid.js';
 import '@fortawesome/fontawesome-free/js/regular.js';
-import '@fortawesome/fontawesome-free/js/brands.js';
 
 const todo = [
   {
@@ -23,20 +25,49 @@ const todo = [
   },
 ];
 
-const populateTodos = () => {
-  const sortedTodo = todo.sort((a, b) => a.index - b.index);
+const populateTodos = (todo, sort) => {
+  let sortedTodo = [];
+  if (sort) {
+    sortedTodo = todo.sort((a, b) => a.index - b.index);
+  } else {
+    sortedTodo = todo;
+  }
 
   for (let i = 0; i < sortedTodo.length; i += 1) {
+    let style = '';
+    let checkbox = '';
+    if (sortedTodo[i].completed) {
+      style = 'text-decoration: line-through;';
+      checkbox = 'checked';
+    } else {
+      style = 'text-decoration: none;';
+      checkbox = '';
+    }
+
     document.getElementById('todo-list').insertAdjacentHTML('beforeend', `
-      <div class="todo-item">
+      <div class="todo-item" draggable="true">
         <div>
-          <input type="checkbox" name="item-${sortedTodo[i].index}">
-          <label for="item-${sortedTodo[i].index}">${sortedTodo[i].description}</label>
+          <input type="checkbox" name="item-${sortedTodo[i].index}" ${checkbox}>
+          <label for="item-${sortedTodo[i].index}" style="${style}"}>
+            ${sortedTodo[i].description}
+          </label>
         </div>
-        <i class="fas fa-ellipsis-v"></i> 
+        <div class="dots-button">
+          <i class="fas fa-ellipsis-v"></i>
+        </div> 
       </div>
     `);
   }
 };
 
-window.onload = populateTodos();
+window.addEventListener('load', () => {
+  const localStorageList = getFromLocalStorage('todo');
+  if (localStorageList == null) {
+    setToLocalStorage(todo, true);
+    populateTodos(todo);
+  } else {
+    populateTodos(localStorageList, false);
+  }
+  dragAndDrop();
+  statusUpdate();
+});

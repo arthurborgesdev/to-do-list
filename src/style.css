@@ -29,6 +29,10 @@ body {
   font-size: 16px;
 }
 
+.dots-button:hover {
+  cursor: move;
+}
+
 .todo-new input {
   font-style: italic;
   outline: none;
@@ -40,7 +44,7 @@ body {
 .todo-item {
   display: flex;
   justify-content: space-between;
-  padding: 16px 4px;
+  padding: 16px 12px;
   border-bottom: 1px solid #f0f0f0;
 }
 

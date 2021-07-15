@@ -6,6 +6,9 @@
 
 The objective of this exercise so far is to display a list of things to do on the webpage using Webpack and JS and style it using CSS.
 
+New features: Now it is possible to drag and drop items and to mark items as completed or not.
+
+![screenshot](./screenshot.png)
 
 ## Built With
 
@@ -16,6 +19,9 @@ The objective of this exercise so far is to display a list of things to do on th
 - Webpack
 - Ubuntu 20.04
 - Fontawesome
+- Drag and Drop API
+- LocalStorage API
+- Linters
 
 ## Setup
 
@@ -24,6 +30,7 @@ The objective of this exercise so far is to display a list of things to do on th
 
 ## Usage
 
+- Run `npm install` on a Terminal to install the modules
 - Run `npm run build` on a Terminal to build the assets using webpack
 - Run `npm run start` on a Terminal to start the server and look at the result in `localhost:8080`
 
