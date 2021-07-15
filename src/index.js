@@ -37,17 +37,19 @@ const populateTodos = (todo, sort) => {
 
   for (let i = 0; i < sortedTodo.length; i += 1) {
     let style = "";
-
+    let checkbox = "";
     if (sortedTodo[i].completed) {
       style = "text-decoration: line-through;";
+      checkbox = "checked";
     } else {
       style = "text-decoration: none;";
+      checkbox = "";
     }
 
     document.getElementById('todo-list').insertAdjacentHTML('beforeend', `
-      <div class="todo-item" draggable="true" checked="${sortedTodo[i].completed}">
+      <div class="todo-item" draggable="true">
         <div>
-          <input type="checkbox" name="item-${sortedTodo[i].index}">
+          <input type="checkbox" name="item-${sortedTodo[i].index}" ${checkbox}>
           <label for="item-${sortedTodo[i].index}" style="${style}"}>
             ${sortedTodo[i].description}
           </label>
