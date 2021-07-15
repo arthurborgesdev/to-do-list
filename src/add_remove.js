@@ -5,8 +5,8 @@ function appendToDOM(todo) {
   document.getElementById('todo-list').insertAdjacentHTML('beforeend', `
     <div class="todo-item" draggable="true">
       <div>
-        <input type="checkbox" name="item-${todo.index}">
-        <label for="item-${todo.index}" style="text-decoration: none;"}>
+        <input type="checkbox" name="item-${todo.index}" readonly="true">
+        <label for="item-${todo.index}" style="text-decoration: none;" contenteditable=true>
           ${todo.description}
         </label>
       </div>
@@ -33,3 +33,7 @@ export function addTodo(description) {
   dragAndDrop();
 }
 
+export function editTodo(item) {
+  console.log(item);
+
+}

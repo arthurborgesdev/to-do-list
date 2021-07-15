@@ -2,7 +2,7 @@ import './style.css';
 import dragAndDrop from './drag_drop.js';
 import { setToLocalStorage, getFromLocalStorage } from './storage.js';
 import statusUpdate from './status_update.js';
-import { addTodo } from './add_remove.js';
+import { addTodo, editTodo } from './add_remove.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome.js';
 import '@fortawesome/fontawesome-free/js/solid.js';
@@ -33,8 +33,8 @@ const populateTodos = (todo, sort) => {
       <div class="todo-item" draggable="true">
         <div>
           <input type="checkbox" name="item-${sortedTodo[i].index}" ${checkbox}>
-          <label for="item-${sortedTodo[i].index}" style="${style}"}>
-            ${sortedTodo[i].description}
+          <label for="item-${sortedTodo[i].index}" style="${style}" contenteditable=true>
+            ${sortedTodo[i].description} 
           </label>
         </div>
         <div class="dots-button">
@@ -52,6 +52,21 @@ document.querySelector('.todo-new > input').addEventListener('keypress', (e) => 
   }
 });
 
+
+function addEditHandlers() {
+  const todoList = document.getElementsByClassName('todo-item');
+  for (let i = 0; i < todoList.length; i += 1) {
+    todoList[i].children[0].children[1].addEventListener('input', (e) => {
+      if (e.target.classList.contains('todo-item')) {
+        editTodo(e.target.children[0].children[1]);
+      } else if(e.target.tagName === 'LABEL') {
+        editTodo(e.target);
+      }
+    });
+  }
+}
+
+
 window.addEventListener('load', () => {
   const localStorageList = getFromLocalStorage();
   if (localStorageList == null) {
@@ -62,4 +77,6 @@ window.addEventListener('load', () => {
   }
   dragAndDrop();
   statusUpdate();
+
+  addEditHandlers();
 });
