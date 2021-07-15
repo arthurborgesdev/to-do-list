@@ -2,7 +2,7 @@ import './style.css';
 import dragAndDrop from './drag_drop.js';
 import { setToLocalStorage, getFromLocalStorage } from './storage.js';
 import statusUpdate from './status_update.js';
-import { addTodo, editTodo } from './add_remove.js';
+import { addEditHandlers } from './add_remove.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome.js';
 import '@fortawesome/fontawesome-free/js/solid.js';
@@ -44,25 +44,6 @@ const populateTodos = (todo, sort) => {
     `);
   }
 };
-
-document.querySelector('.todo-new > input').addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') { 
-    addTodo(e.target.value);
-    e.target.value = "";
-  }
-});
-
-
-function addEditHandlers() {
-  const todoList = document.getElementsByClassName('todo-item');
-  for (let i = 0; i < todoList.length; i += 1) {
-    let labelElem = todoList[i].children[0].children[1];
-    labelElem.addEventListener('input', () => {
-      editTodo(labelElem);
-    });
-  }
-}
-
 
 window.addEventListener('load', () => {
   const localStorageList = getFromLocalStorage();
