@@ -3,6 +3,7 @@ import dragAndDrop from './drag_drop.js';
 import { setToLocalStorage, getFromLocalStorage } from './storage.js';
 import statusUpdate from './status_update.js';
 import { addEditHandlers } from './add_remove.js';
+import { sortIndex } from './drag_drop.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome.js';
 import '@fortawesome/fontawesome-free/js/solid.js';
@@ -46,12 +47,14 @@ const populateTodos = (todo, sort) => {
 };
 
 window.addEventListener('load', () => {
-  const localStorageList = getFromLocalStorage();
+  let localStorageList = getFromLocalStorage();
+
   if (localStorageList == null) {
     setToLocalStorage(todo, true);
     populateTodos(todo);
   } else {
-    populateTodos(localStorageList, false);
+    let sortedList = sortIndex(localStorageList);
+    populateTodos(sortedList, false);
   }
   dragAndDrop();
   statusUpdate();

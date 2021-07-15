@@ -1,7 +1,15 @@
 import { setToLocalStorage } from './storage.js';
 import statusUpdate from './status_update.js';
+import { addEditHandlers } from './add_remove.js';
 
 let dragSrcEl = null;
+
+export function sortIndex(list) {
+  for(let i = 0; i < list.length; i += 1) {
+    list[i].index = i;
+  }
+  return list;
+}
 
 function generateListFromDOM() {
   const list = document.getElementsByClassName('todo-item');
@@ -10,7 +18,7 @@ function generateListFromDOM() {
     const description = list[i].children[0].children[1].innerText;
     const completed = list[i].children[0].children[0].checked;
     const index = list[i].children[0].children[0].name.split('-')[1];
-
+    
     resultList.push({
       description,
       completed,
@@ -20,9 +28,11 @@ function generateListFromDOM() {
   return resultList;
 }
 
-function refreshLocalStorage() {
-  const resultList = generateListFromDOM();
-  setToLocalStorage(resultList);
+export function refreshLocalStorage() {
+  let resultList = generateListFromDOM();
+  let sortedList = sortIndex(resultList);
+  
+  setToLocalStorage(sortedList);
 }
 
 function dragStart(e) {
@@ -94,6 +104,7 @@ function drop(e) {
     }
   }
 
+  addEditHandlers();
   statusUpdate();
   refreshLocalStorage();
   return false;

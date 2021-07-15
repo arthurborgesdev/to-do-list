@@ -1,5 +1,5 @@
 import { getFromLocalStorage, setToLocalStorage } from "./storage";
-import dragAndDrop from './drag_drop.js';
+import { dragAndDrop, refreshLocalStorage } from './drag_drop.js';
 
 document.querySelector('.todo-new > input').addEventListener('keypress', (e) => {
   if (e.key === 'Enter') { 
@@ -13,7 +13,7 @@ export function addEditHandlers() {
   for (let i = 0; i < todoList.length; i += 1) {
     let labelElem = todoList[i].children[0].children[1];
     labelElem.addEventListener('input', () => {
-      editTodo(labelElem);
+      refreshLocalStorage();
     });
   }
 }
@@ -48,30 +48,10 @@ export function addTodo(description) {
     newTodo.index = todoLength;
   }
   
-  
   currentTodoList.push(newTodo);
   setToLocalStorage(currentTodoList);
   appendToDOM(newTodo);
   dragAndDrop();
 
   addEditHandlers();
-}
-
-export function editTodo(item) {
-  let todoIndex = item.getAttribute('for').split('-')[1];
-  let todoDescription = item.innerText;
-
-  updateTodo(todoIndex, todoDescription);
-}
-
-function updateTodo(todoIndex, description) {
-  let currentTodoList = getFromLocalStorage();
-
-  currentTodoList.forEach((item) => {
-    if (item.index === Number(todoIndex) || item.index === todoIndex.toString()) {
-      item.description = description;
-    }
-  });
-
-  setToLocalStorage(currentTodoList);
 }
