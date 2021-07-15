@@ -1,5 +1,5 @@
 import './style.css';
-import dragAndDrop from './drag_drop.js';
+import { dragAndDrop } from './drag_drop.js';
 import { setToLocalStorage, getFromLocalStorage } from './storage.js';
 import statusUpdate from './status_update.js';
 import { addEditHandlers } from './add_remove.js';

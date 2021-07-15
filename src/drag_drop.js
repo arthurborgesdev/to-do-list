@@ -31,7 +31,7 @@ function generateListFromDOM() {
 export function refreshLocalStorage() {
   let resultList = generateListFromDOM();
   let sortedList = sortIndex(resultList);
-  
+
   setToLocalStorage(sortedList);
 }
 
@@ -110,7 +110,7 @@ function drop(e) {
   return false;
 }
 
-export default function dragAndDrop() {
+export function dragAndDrop() {
   const todoItems = document.getElementsByClassName('todo-item');
   [...todoItems].forEach((todoItem) => {
     todoItem.addEventListener('dragstart', dragStart, false);
