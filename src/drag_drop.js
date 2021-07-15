@@ -1,6 +1,7 @@
 let dragSrcEl = null;
 
 import { setToLocalStorage } from './storage.js';
+import { statusUpdate } from './status_update';
 
 export function dragAndDrop() {
   const todoItems = document.getElementsByClassName('todo-item');
@@ -20,7 +21,7 @@ function dragStart(e) {
   e.dataTransfer.setData('text/html', dragSrcEl.innerHTML);
 }
 
-function dragEnd(e) {
+function dragEnd() {
   this.style.opacity = '1';
 }
 
@@ -43,6 +44,12 @@ function drop(e) {
       .children[0]
       .getAttribute('name')
       .split('-')[1];
+    
+    const checkedSource = dragSrcEl.children[0]
+      .children[0].checked;
+
+    const checkedDestiny = dropDestEl.children[0]
+      .children[0].checked;
 
     dragSrcEl.innerHTML = dropDestEl.innerHTML;
     dropDestEl.innerHTML = e.dataTransfer.getData('text/html');
@@ -64,10 +71,19 @@ function drop(e) {
     dropDestEl.children[0]
       .children[1]
       .setAttribute('for', `item-${currentId}`);
+
+    // Set checked attribute
+    if(checkedSource === true && checkedDestiny === false) {
+      dragSrcEl.children[0].children[0].checked = false;
+      dropDestEl.children[0].children[0].checked = true;
+    } else if (checkedSource === false && checkedDestiny === true) {
+      dragSrcEl.children[0].children[0].checked = true;
+      dropDestEl.children[0].children[0].checked = false;
+    }
   }
 
-  refreshLocalStorage();  
-
+  statusUpdate();
+  refreshLocalStorage();
   return false;
 }
 
@@ -89,7 +105,6 @@ function generateListFromDOM() {
 }
 
 function refreshLocalStorage() {
-  localStorage.removeItem('todo');
   let resultList = generateListFromDOM()
   setToLocalStorage(resultList);
 }

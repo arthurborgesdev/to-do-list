@@ -4,7 +4,7 @@ export function statusUpdate() {
   const todoItems = document.getElementsByClassName('todo-item');
 
   [...todoItems].forEach(todoItem => {
-    todoItem.children[0].children[0].addEventListener('change', () => {
+    todoItem.children[0].children[0].addEventListener('change', (e) => {
       updateTodo(todoItem);
     });
   });
@@ -16,10 +16,10 @@ function updateTodo(todoItem) {
   const checkboxIndex = checkbox.getAttribute('name').split('-')[1];
   
   if (checkbox.checked) {
-    markTodoItem(Number(checkboxIndex), true);
+    markTodoItem(checkboxIndex, true);
     checkbox.nextElementSibling.style.textDecoration = 'line-through';
   } else {
-    markTodoItem(Number(checkboxIndex), false);
+    markTodoItem(checkboxIndex, false);
     checkbox.nextElementSibling.style.textDecoration = 'none';
   }
 }
@@ -28,12 +28,10 @@ function markTodoItem(index, value) {
   const list = getFromLocalStorage();
 
   list.forEach((item) => {
-    if (item.index === index) {
+    if (item.index === Number(index) || item.index === index.toString()) {
       item.completed = value;
     }
   });
-
-  console.log(list);
-
+  
   setToLocalStorage(list);
 }

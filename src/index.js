@@ -1,13 +1,12 @@
 import './style.css';
 import { dragAndDrop } from './drag_drop.js';
 import { setToLocalStorage } from './storage.js';
-import './status_update.js'
+import { statusUpdate } from './status_update.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome.js';
 import '@fortawesome/fontawesome-free/js/solid.js';
 import '@fortawesome/fontawesome-free/js/regular.js';
 import '@fortawesome/fontawesome-free/js/brands.js';
-import { statusUpdate } from './status_update.js';
 
 const todo = [
   {
