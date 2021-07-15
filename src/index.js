@@ -1,6 +1,6 @@
 import './style.css';
 import { dragAndDrop } from './drag_drop.js';
-import { setToLocalStorage } from './storage.js';
+import { setToLocalStorage, getFromLocalStorage } from './storage.js';
 import { statusUpdate } from './status_update.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome.js';
@@ -26,15 +26,31 @@ const todo = [
   },
 ];
 
-const populateTodos = () => {
-  const sortedTodo = todo.sort((a, b) => a.index - b.index);
+const populateTodos = (todo, sort) => {
+  
+  let sortedTodo = []
+  if (sort) {
+    sortedTodo = todo.sort((a, b) => a.index - b.index);
+  } else {
+    sortedTodo = todo;
+  }
 
   for (let i = 0; i < sortedTodo.length; i += 1) {
+    let style = "";
+
+    if (sortedTodo[i].completed) {
+      style = "text-decoration: line-through;";
+    } else {
+      style = "text-decoration: none;";
+    }
+
     document.getElementById('todo-list').insertAdjacentHTML('beforeend', `
-      <div class="todo-item" draggable="true">
+      <div class="todo-item" draggable="true" checked="${sortedTodo[i].completed}">
         <div>
           <input type="checkbox" name="item-${sortedTodo[i].index}">
-          <label for="item-${sortedTodo[i].index}">${sortedTodo[i].description}</label>
+          <label for="item-${sortedTodo[i].index}" style="${style}"}>
+            ${sortedTodo[i].description}
+          </label>
         </div>
         <div class="dots-button">
           <i class="fas fa-ellipsis-v"></i>
@@ -45,8 +61,15 @@ const populateTodos = () => {
 };
 
 window.addEventListener('load', () => {
-  setToLocalStorage(todo);
-  populateTodos();
+  let localStorageList = getFromLocalStorage('todo');
+  console.log(localStorageList);
+  if (localStorageList == null) {
+    setToLocalStorage(todo, true);
+    populateTodos(todo);
+  } else {
+  console.log("auishdihasiud");
+    populateTodos(localStorageList, false);
+  }
   dragAndDrop();
   statusUpdate();
 }); 
