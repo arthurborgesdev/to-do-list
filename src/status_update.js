@@ -1,29 +1,15 @@
-import { getFromLocalStorage, setToLocalStorage } from './storage.js';
-
-function markTodoItem(index, value) {
-  const list = getFromLocalStorage();
-
-  list.forEach((item) => {
-    if (item.index === Number(index) || item.index === index.toString()) {
-      item.completed = value;
-    }
-  });
-
-  setToLocalStorage(list);
-}
+import { refreshLocalStorage } from './drag_drop.js';
 
 function updateTodo(todoItem) {
   const checkbox = todoItem.children[0].children[0];
 
-  const checkboxIndex = checkbox.getAttribute('name').split('-')[1];
-
   if (checkbox.checked) {
-    markTodoItem(checkboxIndex, true);
     checkbox.nextElementSibling.style.textDecoration = 'line-through';
   } else {
-    markTodoItem(checkboxIndex, false);
     checkbox.nextElementSibling.style.textDecoration = 'none';
   }
+
+  refreshLocalStorage();
 }
 
 export default function statusUpdate() {
