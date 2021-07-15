@@ -53,7 +53,7 @@ document.querySelector('.todo-new > input').addEventListener('keypress', (e) => 
 });
 
 window.addEventListener('load', () => {
-  const localStorageList = getFromLocalStorage('todo');
+  const localStorageList = getFromLocalStorage();
   if (localStorageList == null) {
     setToLocalStorage(todo, true);
     populateTodos(todo);
