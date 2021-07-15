@@ -1,5 +1,6 @@
 import './style.css';
 import { dragHover } from './drag_drop.js';
+import { setToLocalStorage } from './storage.js';
 import './status_update.js'
 
 import '@fortawesome/fontawesome-free/js/fontawesome.js';
@@ -44,6 +45,7 @@ const populateTodos = () => {
 };
 
 window.addEventListener('load', () => {
+  setToLocalStorage(todo);
   populateTodos();
   dragHover();
 }); 

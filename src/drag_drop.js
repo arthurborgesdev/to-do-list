@@ -1,5 +1,7 @@
 let dragSrcEl = null;
 
+import { setToLocalStorage } from './storage.js';
+
 export function dragHover() {
   const todoItems = document.getElementsByClassName('todo-item');
   [...todoItems].forEach(todoItem => {
@@ -67,5 +69,30 @@ function drop(e) {
       .setAttribute('for', `item-${currentId}`);
   }
 
+  refreshLocalStorage();  
+
   return false;
+}
+
+function generateListFromDOM() {
+  const list = document.getElementsByClassName('todo-item');
+  const resultList = [];
+  for(let i = 0; i < list.length; i += 1) {
+    let description = list[i].children[0].children[1].innerText;
+    let completed = list[i].children[0].children[0].checked;
+    let index = list[i].children[0].children[0].name.split('-')[1];
+    
+    resultList.push({
+      description: description,
+      completed: completed,
+      index: index
+    });
+  }
+  return resultList;
+}
+
+function refreshLocalStorage() {
+  localStorage.removeItem('todo');
+  let resultList = generateListFromDOM()
+  setToLocalStorage(resultList);
 }
