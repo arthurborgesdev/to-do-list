@@ -1,13 +1,15 @@
 import { getFromLocalStorage, setToLocalStorage } from './storage.js';
 
-export function statusUpdate() {
-  const todoItems = document.getElementsByClassName('todo-item');
+function markTodoItem(index, value) {
+  const list = getFromLocalStorage();
 
-  [...todoItems].forEach((todoItem) => {
-    todoItem.children[0].children[0].addEventListener('change', (e) => {
-      updateTodo(todoItem);
-    });
+  list.forEach((item) => {
+    if (item.index === Number(index) || item.index === index.toString()) {
+      item.completed = value;
+    }
   });
+
+  setToLocalStorage(list);
 }
 
 function updateTodo(todoItem) {
@@ -24,14 +26,12 @@ function updateTodo(todoItem) {
   }
 }
 
-function markTodoItem(index, value) {
-  const list = getFromLocalStorage();
+export default function statusUpdate() {
+  const todoItems = document.getElementsByClassName('todo-item');
 
-  list.forEach((item) => {
-    if (item.index === Number(index) || item.index === index.toString()) {
-      item.completed = value;
-    }
+  [...todoItems].forEach((todoItem) => {
+    todoItem.children[0].children[0].addEventListener('change', () => {
+      updateTodo(todoItem);
+    });
   });
-
-  setToLocalStorage(list);
 }

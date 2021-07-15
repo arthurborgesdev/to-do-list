@@ -1,16 +1,28 @@
 import { setToLocalStorage } from './storage.js';
-import { statusUpdate } from './status_update.js';
+import statusUpdate from './status_update.js';
 
 let dragSrcEl = null;
 
-export function dragAndDrop() {
-  const todoItems = document.getElementsByClassName('todo-item');
-  [...todoItems].forEach((todoItem) => {
-    todoItem.addEventListener('dragstart', dragStart, false);
-    todoItem.addEventListener('dragend', dragEnd, false);
-    todoItem.addEventListener('drop', drop, false);
-    todoItem.addEventListener('dragover', dragOver, false);
-  });
+function generateListFromDOM() {
+  const list = document.getElementsByClassName('todo-item');
+  const resultList = [];
+  for (let i = 0; i < list.length; i += 1) {
+    const description = list[i].children[0].children[1].innerText;
+    const completed = list[i].children[0].children[0].checked;
+    const index = list[i].children[0].children[0].name.split('-')[1];
+
+    resultList.push({
+      description,
+      completed,
+      index,
+    });
+  }
+  return resultList;
+}
+
+function refreshLocalStorage() {
+  const resultList = generateListFromDOM();
+  setToLocalStorage(resultList);
 }
 
 function dragStart(e) {
@@ -87,24 +99,12 @@ function drop(e) {
   return false;
 }
 
-function generateListFromDOM() {
-  const list = document.getElementsByClassName('todo-item');
-  const resultList = [];
-  for (let i = 0; i < list.length; i += 1) {
-    const description = list[i].children[0].children[1].innerText;
-    const completed = list[i].children[0].children[0].checked;
-    const index = list[i].children[0].children[0].name.split('-')[1];
-
-    resultList.push({
-      description,
-      completed,
-      index,
-    });
-  }
-  return resultList;
-}
-
-function refreshLocalStorage() {
-  const resultList = generateListFromDOM();
-  setToLocalStorage(resultList);
+export default function dragAndDrop() {
+  const todoItems = document.getElementsByClassName('todo-item');
+  [...todoItems].forEach((todoItem) => {
+    todoItem.addEventListener('dragstart', dragStart, false);
+    todoItem.addEventListener('dragend', dragEnd, false);
+    todoItem.addEventListener('drop', drop, false);
+    todoItem.addEventListener('dragover', dragOver, false);
+  });
 }

@@ -1,7 +1,7 @@
 import './style.css';
-import { dragAndDrop } from './drag_drop.js';
+import dragAndDrop from './drag_drop.js';
 import { setToLocalStorage, getFromLocalStorage } from './storage.js';
-import { statusUpdate } from './status_update.js';
+import statusUpdate from './status_update.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome.js';
 import '@fortawesome/fontawesome-free/js/solid.js';
@@ -62,12 +62,10 @@ const populateTodos = (todo, sort) => {
 
 window.addEventListener('load', () => {
   const localStorageList = getFromLocalStorage('todo');
-  console.log(localStorageList);
   if (localStorageList == null) {
     setToLocalStorage(todo, true);
     populateTodos(todo);
   } else {
-    console.log('auishdihasiud');
     populateTodos(localStorageList, false);
   }
   dragAndDrop();
