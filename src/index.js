@@ -26,8 +26,7 @@ const todo = [
 ];
 
 const populateTodos = (todo, sort) => {
-  
-  let sortedTodo = []
+  let sortedTodo = [];
   if (sort) {
     sortedTodo = todo.sort((a, b) => a.index - b.index);
   } else {
@@ -35,14 +34,14 @@ const populateTodos = (todo, sort) => {
   }
 
   for (let i = 0; i < sortedTodo.length; i += 1) {
-    let style = "";
-    let checkbox = "";
+    let style = '';
+    let checkbox = '';
     if (sortedTodo[i].completed) {
-      style = "text-decoration: line-through;";
-      checkbox = "checked";
+      style = 'text-decoration: line-through;';
+      checkbox = 'checked';
     } else {
-      style = "text-decoration: none;";
-      checkbox = "";
+      style = 'text-decoration: none;';
+      checkbox = '';
     }
 
     document.getElementById('todo-list').insertAdjacentHTML('beforeend', `
@@ -62,15 +61,15 @@ const populateTodos = (todo, sort) => {
 };
 
 window.addEventListener('load', () => {
-  let localStorageList = getFromLocalStorage('todo');
+  const localStorageList = getFromLocalStorage('todo');
   console.log(localStorageList);
   if (localStorageList == null) {
     setToLocalStorage(todo, true);
     populateTodos(todo);
   } else {
-  console.log("auishdihasiud");
+    console.log('auishdihasiud');
     populateTodos(localStorageList, false);
   }
   dragAndDrop();
   statusUpdate();
-}); 
+});

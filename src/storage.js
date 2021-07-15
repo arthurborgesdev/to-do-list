@@ -6,4 +6,3 @@ export function getFromLocalStorage() {
   const todoList = localStorage.getItem('todo');
   return JSON.parse(todoList);
 }
-

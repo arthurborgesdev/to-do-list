@@ -3,7 +3,7 @@ import { getFromLocalStorage, setToLocalStorage } from './storage.js';
 export function statusUpdate() {
   const todoItems = document.getElementsByClassName('todo-item');
 
-  [...todoItems].forEach(todoItem => {
+  [...todoItems].forEach((todoItem) => {
     todoItem.children[0].children[0].addEventListener('change', (e) => {
       updateTodo(todoItem);
     });
@@ -11,10 +11,10 @@ export function statusUpdate() {
 }
 
 function updateTodo(todoItem) {
-  let checkbox = todoItem.children[0].children[0];
+  const checkbox = todoItem.children[0].children[0];
 
   const checkboxIndex = checkbox.getAttribute('name').split('-')[1];
-  
+
   if (checkbox.checked) {
     markTodoItem(checkboxIndex, true);
     checkbox.nextElementSibling.style.textDecoration = 'line-through';
@@ -32,6 +32,6 @@ function markTodoItem(index, value) {
       item.completed = value;
     }
   });
-  
+
   setToLocalStorage(list);
 }

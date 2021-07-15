@@ -1,11 +1,11 @@
-let dragSrcEl = null;
-
 import { setToLocalStorage } from './storage.js';
-import { statusUpdate } from './status_update';
+import { statusUpdate } from './status_update.js';
+
+let dragSrcEl = null;
 
 export function dragAndDrop() {
   const todoItems = document.getElementsByClassName('todo-item');
-  [...todoItems].forEach(todoItem => {
+  [...todoItems].forEach((todoItem) => {
     todoItem.addEventListener('dragstart', dragStart, false);
     todoItem.addEventListener('dragend', dragEnd, false);
     todoItem.addEventListener('drop', drop, false);
@@ -31,20 +31,20 @@ function dragOver(e) {
 
 function drop(e) {
   e.stopPropagation();
-  
-  let dropDestEl = e.currentTarget;
+
+  const dropDestEl = e.currentTarget;
 
   if (dragSrcEl !== dropDestEl) {
     const currentId = dragSrcEl.children[0]
       .children[0]
       .getAttribute('name')
       .split('-')[1];
-    
+
     const destinyId = dropDestEl.children[0]
       .children[0]
       .getAttribute('name')
       .split('-')[1];
-    
+
     const checkedSource = dragSrcEl.children[0]
       .children[0].checked;
 
@@ -73,7 +73,7 @@ function drop(e) {
       .setAttribute('for', `item-${currentId}`);
 
     // Set checked attribute
-    if(checkedSource === true && checkedDestiny === false) {
+    if (checkedSource === true && checkedDestiny === false) {
       dragSrcEl.children[0].children[0].checked = false;
       dropDestEl.children[0].children[0].checked = true;
     } else if (checkedSource === false && checkedDestiny === true) {
@@ -90,21 +90,21 @@ function drop(e) {
 function generateListFromDOM() {
   const list = document.getElementsByClassName('todo-item');
   const resultList = [];
-  for(let i = 0; i < list.length; i += 1) {
-    let description = list[i].children[0].children[1].innerText;
-    let completed = list[i].children[0].children[0].checked;
-    let index = list[i].children[0].children[0].name.split('-')[1];
-    
+  for (let i = 0; i < list.length; i += 1) {
+    const description = list[i].children[0].children[1].innerText;
+    const completed = list[i].children[0].children[0].checked;
+    const index = list[i].children[0].children[0].name.split('-')[1];
+
     resultList.push({
-      description: description,
-      completed: completed,
-      index: index
+      description,
+      completed,
+      index,
     });
   }
   return resultList;
 }
 
 function refreshLocalStorage() {
-  let resultList = generateListFromDOM()
+  const resultList = generateListFromDOM();
   setToLocalStorage(resultList);
 }
