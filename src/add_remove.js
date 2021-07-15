@@ -1,4 +1,5 @@
 import { getFromLocalStorage, setToLocalStorage } from "./storage";
+import dragAndDrop from './drag_drop.js';
 
 function appendToDOM(todo) {
   document.getElementById('todo-list').insertAdjacentHTML('beforeend', `
@@ -29,5 +30,6 @@ export function addTodo(description) {
   currentTodoList.push(newTodo);
   setToLocalStorage(currentTodoList);
   appendToDOM(newTodo);
+  dragAndDrop();
 }
 
