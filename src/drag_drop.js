@@ -1,43 +1,71 @@
+let dragSrcEl = null;
+
 export function dragHover() {
-  let dots = document.getElementsByClassName('dots-button');
-  [...dots].forEach(dot => {
-    dot.addEventListener('click', () => {
-      const todoItems = document.getElementsByClassName('todo-item');
-      [...todoItems].forEach(todoItem => {
-        todoItem.addEventListener("dragstart", dragStart)
-      });
-    });
+  const todoItems = document.getElementsByClassName('todo-item');
+  [...todoItems].forEach(todoItem => {
+    todoItem.addEventListener('dragstart', dragStart, false);
+    todoItem.addEventListener('dragend', dragEnd, false);
+    todoItem.addEventListener('drop', drop, false);
+    todoItem.addEventListener('dragover', dragOver, false);
   });
 }
 
-function dragStart(ev) {
-  ev.preventDefault();
-  console.log("Halabalujah", ev.parent);
-  let xOffset = 0;
-  let yOffset = 0;
-  let initialX = ev.clientX - xOffset;
-  let initialY = ev.clientY - yOffset;
-  console.log('initialX', initialX);
-  console.log('initialY', initialY);
+function dragStart(e) {
+  this.style.opacity = '0.4';
+  dragSrcEl = e.currentTarget;
+
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/html', dragSrcEl.innerHTML);
 }
 
-function dragEnd(ev) {
-  ev.preventDefault();
-  let initialX = currentX;
-  let initialY = currentY;
+function dragEnd(e) {
+  this.style.opacity = '1';
 }
 
-function drag(ev) {
-  ev.preventDefault();
-  currentX = ev.clientX - initialX;
-  currentY = ev.clientY - initialY;
-
-  xOffset = currentX;
-  yOffset = currentY;
-
-  setTranslate(currentX, currentY, dragItem);
+function dragOver(e) {
+  e.preventDefault();
 }
 
-function setTranslate(xPos, yPos, el) {
-  el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+function drop(e) {
+  e.stopPropagation();
+  
+  let dropDestEl = e.currentTarget;
+
+  if (dragSrcEl !== dropDestEl) {
+    const currentId = dragSrcEl.children[0]
+      .children[0]
+      .getAttribute('name')
+      .split('-')[1];
+    
+    const destinyId = dropDestEl.children[0]
+      .children[0]
+      .getAttribute('name')
+      .split('-')[1];
+
+    console.log(currentId);
+    console.log(destinyId);
+
+    dragSrcEl.innerHTML = dropDestEl.innerHTML;
+    dropDestEl.innerHTML = e.dataTransfer.getData('text/html');
+
+    // Set values for source element
+    dragSrcEl.children[0]
+      .children[0]
+      .setAttribute('name', `item-${destinyId}`);
+
+    dragSrcEl.children[0]
+      .children[1]
+      .setAttribute('for', `item-${destinyId}`);
+
+    // Set values for destiny element
+    dropDestEl.children[0]
+      .children[0]
+      .setAttribute('name', `item-${currentId}`);
+
+    dropDestEl.children[0]
+      .children[1]
+      .setAttribute('for', `item-${currentId}`);
+  }
+
+  return false;
 }
