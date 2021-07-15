@@ -2,7 +2,7 @@ let dragSrcEl = null;
 
 import { setToLocalStorage } from './storage.js';
 
-export function dragHover() {
+export function dragAndDrop() {
   const todoItems = document.getElementsByClassName('todo-item');
   [...todoItems].forEach(todoItem => {
     todoItem.addEventListener('dragstart', dragStart, false);
@@ -43,9 +43,6 @@ function drop(e) {
       .children[0]
       .getAttribute('name')
       .split('-')[1];
-
-    console.log(currentId);
-    console.log(destinyId);
 
     dragSrcEl.innerHTML = dropDestEl.innerHTML;
     dropDestEl.innerHTML = e.dataTransfer.getData('text/html');
