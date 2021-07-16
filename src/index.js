@@ -1,9 +1,11 @@
 import './style.css';
-import { dragAndDrop } from './drag_drop.js';
+// eslint-disable-next-line
+import { dragAndDrop, sortIndex} from './drag_drop.js';
+// eslint-disable-next-line
 import { setToLocalStorage, getFromLocalStorage } from './storage.js';
 import statusUpdate from './status_update.js';
+// eslint-disable-next-line
 import { addEditHandlers, addButtonHandlers } from './add_remove.js';
-import { sortIndex } from './drag_drop.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome.js';
 import '@fortawesome/fontawesome-free/js/solid.js';
@@ -48,13 +50,13 @@ const populateTodos = (todo, sort) => {
 };
 
 window.addEventListener('load', () => {
-  let localStorageList = getFromLocalStorage();
+  const localStorageList = getFromLocalStorage();
 
   if (localStorageList == null) {
     setToLocalStorage(todo, true);
     populateTodos(todo);
   } else {
-    let sortedList = sortIndex(localStorageList);
+    const sortedList = sortIndex(localStorageList);
     populateTodos(sortedList, false);
   }
   dragAndDrop();

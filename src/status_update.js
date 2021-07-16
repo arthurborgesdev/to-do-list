@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import { refreshLocalStorage } from './drag_drop.js';
 
 function updateTodo(todoItem) {

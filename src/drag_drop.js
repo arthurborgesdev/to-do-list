@@ -1,11 +1,14 @@
+// eslint-disable-next-line
 import { setToLocalStorage } from './storage.js';
+// eslint-disable-next-line
 import statusUpdate from './status_update.js';
+// eslint-disable-next-line
 import { addButtonHandlers, addEditHandlers } from './add_remove.js';
 
 let dragSrcEl = null;
 
 export function sortIndex(list) {
-  for(let i = 0; i < list.length; i += 1) {
+  for (let i = 0; i < list.length; i += 1) {
     list[i].index = i;
   }
   return list;
@@ -18,7 +21,7 @@ function generateListFromDOM() {
     const description = list[i].children[0].children[1].innerText;
     const completed = list[i].children[0].children[0].checked;
     const index = list[i].children[0].children[0].name.split('-')[1];
-    
+
     resultList.push({
       description,
       completed,
@@ -29,8 +32,8 @@ function generateListFromDOM() {
 }
 
 export function refreshLocalStorage() {
-  let resultList = generateListFromDOM();
-  let sortedList = sortIndex(resultList);
+  const resultList = generateListFromDOM();
+  const sortedList = sortIndex(resultList);
 
   setToLocalStorage(sortedList);
 }
@@ -103,7 +106,7 @@ function drop(e) {
       dropDestEl.children[0].children[0].checked = false;
     }
   }
-  
+
   addButtonHandlers();
   addEditHandlers();
   statusUpdate();

@@ -1,25 +1,13 @@
-import { getFromLocalStorage, setToLocalStorage } from "./storage";
+// eslint-disable-next-line
+import { getFromLocalStorage, setToLocalStorage } from './storage.js';
+// eslint-disable-next-line
 import { dragAndDrop, refreshLocalStorage } from './drag_drop.js';
-
-document.querySelector('.todo-new > input').addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') { 
-    addTodo(e.target.value);
-    e.target.value = "";
-  }
-});
-
-document.getElementById('clear-all').addEventListener('click', () => {
-  const todoList = document.getElementsByClassName('todo-item');
-  [...todoList].filter((todoItem) => todoItem.children[0].children[0].checked)
-    .forEach((item) => item.remove());
-    refreshLocalStorage();
-});
 
 export function addEditHandlers() {
   const todoList = document.getElementsByClassName('todo-item');
   for (let i = 0; i < todoList.length; i += 1) {
-    let labelElem = todoList[i].children[0].children[1];
-    labelElem.addEventListener('input', (e) => {
+    const labelElem = todoList[i].children[0].children[1];
+    labelElem.addEventListener('input', () => {
       refreshLocalStorage();
     });
   }
@@ -28,7 +16,7 @@ export function addEditHandlers() {
 export function addButtonHandlers() {
   const buttons = document.getElementsByClassName('remove-button');
   for (let i = 0; i < buttons.length; i += 1) {
-    buttons[i].addEventListener('click', (e) => {
+    buttons[i].addEventListener('click', () => {
       buttons[i].parentElement.parentElement.remove();
       refreshLocalStorage();
     });
@@ -53,24 +41,38 @@ function appendToDOM(todo) {
 }
 
 export function addTodo(description) {
-  let newTodo = {
-    description: description,
-    completed: false
+  const newTodo = {
+    description,
+    completed: false,
   };
 
-  let currentTodoList = getFromLocalStorage();
-  let todoLength = currentTodoList.length;
+  const currentTodoList = getFromLocalStorage();
+  const todoLength = currentTodoList.length;
   if (todoLength === 0) {
     newTodo.index = 0;
   } else {
     newTodo.index = todoLength;
   }
-  
+
   currentTodoList.push(newTodo);
   setToLocalStorage(currentTodoList);
   appendToDOM(newTodo);
   dragAndDrop();
-  
+
   addEditHandlers();
   addButtonHandlers();
 }
+
+document.querySelector('.todo-new > input').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    addTodo(e.target.value);
+    e.target.value = '';
+  }
+});
+
+document.getElementById('clear-all').addEventListener('click', () => {
+  const todoList = document.getElementsByClassName('todo-item');
+  [...todoList].filter((todoItem) => todoItem.children[0].children[0].checked)
+    .forEach((item) => item.remove());
+  refreshLocalStorage();
+});
