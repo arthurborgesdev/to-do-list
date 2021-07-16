@@ -19,18 +19,17 @@ export function addEditHandlers() {
   const todoList = document.getElementsByClassName('todo-item');
   for (let i = 0; i < todoList.length; i += 1) {
     let labelElem = todoList[i].children[0].children[1];
-    labelElem.addEventListener('input', () => {
+    labelElem.addEventListener('input', (e) => {
       refreshLocalStorage();
     });
   }
 }
 
 export function addButtonHandlers() {
-  const todoList = document.getElementsByClassName('todo-item');
-  for (let i = 0; i < todoList.length; i += 1) {
-    let buttonElem = todoList[i].children[1].children[0];
-    buttonElem.addEventListener('click', () => { 
-      buttonElem.parentElement.parentElement.remove();
+  const buttons = document.getElementsByClassName('remove-button');
+  for (let i = 0; i < buttons.length; i += 1) {
+    buttons[i].addEventListener('click', (e) => {
+      buttons[i].parentElement.parentElement.remove();
       refreshLocalStorage();
     });
   }
@@ -46,7 +45,7 @@ function appendToDOM(todo) {
         </label>
       </div>
       <div class="dots-button">
-        <button id="item-${todo.index}"><i class="fas fa-trash"></i></button>
+        <span class="remove-button><i id="item-${todo.index}" class="fas fa-trash"></i></span>
         <i class="fas fa-ellipsis-v"></i>
       </div> 
     </div>

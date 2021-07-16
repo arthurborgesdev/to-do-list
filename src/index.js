@@ -39,7 +39,7 @@ const populateTodos = (todo, sort) => {
           </label>
         </div>
         <div class="dots-button">
-          <button id="item-${sortedTodo[i].index}"><i class="fas fa-trash"></i></button>
+          <span class="remove-button"><i id="item-${sortedTodo[i].index}" class="fas fa-trash"></i></span>
           <i class="fas fa-ellipsis-v"></i>
         </div> 
       </div>
