@@ -2,7 +2,7 @@ import './style.css';
 import { dragAndDrop } from './drag_drop.js';
 import { setToLocalStorage, getFromLocalStorage } from './storage.js';
 import statusUpdate from './status_update.js';
-import { addEditHandlers } from './add_remove.js';
+import { addEditHandlers, addButtonHandlers } from './add_remove.js';
 import { sortIndex } from './drag_drop.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome.js';
@@ -39,6 +39,7 @@ const populateTodos = (todo, sort) => {
           </label>
         </div>
         <div class="dots-button">
+          <button id="item-${sortedTodo[i].index}"><i class="fas fa-trash"></i></button>
           <i class="fas fa-ellipsis-v"></i>
         </div> 
       </div>
@@ -60,4 +61,5 @@ window.addEventListener('load', () => {
   statusUpdate();
 
   addEditHandlers();
+  addButtonHandlers();
 });

@@ -18,6 +18,17 @@ export function addEditHandlers() {
   }
 }
 
+export function addButtonHandlers() {
+  const todoList = document.getElementsByClassName('todo-item');
+  for (let i = 0; i < todoList.length; i += 1) {
+    let buttonElem = todoList[i].children[1].children[0];
+    buttonElem.addEventListener('click', (e) => { 
+      buttonElem.parentElement.parentElement.remove();
+      refreshLocalStorage();
+    });
+  }
+}
+
 function appendToDOM(todo) {
   document.getElementById('todo-list').insertAdjacentHTML('beforeend', `
     <div class="todo-item" draggable="true">
@@ -28,6 +39,7 @@ function appendToDOM(todo) {
         </label>
       </div>
       <div class="dots-button">
+        <button id="item-${todo.index}"><i class="fas fa-trash"></i></button>
         <i class="fas fa-ellipsis-v"></i>
       </div> 
     </div>

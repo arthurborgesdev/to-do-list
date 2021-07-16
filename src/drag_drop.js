@@ -1,6 +1,6 @@
 import { setToLocalStorage } from './storage.js';
 import statusUpdate from './status_update.js';
-import { addEditHandlers } from './add_remove.js';
+import { addButtonHandlers, addEditHandlers } from './add_remove.js';
 
 let dragSrcEl = null;
 
@@ -103,7 +103,8 @@ function drop(e) {
       dropDestEl.children[0].children[0].checked = false;
     }
   }
-
+  
+  addButtonHandlers();
   addEditHandlers();
   statusUpdate();
   refreshLocalStorage();
