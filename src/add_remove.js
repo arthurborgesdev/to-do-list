@@ -45,7 +45,7 @@ function appendToDOM(todo) {
         </label>
       </div>
       <div class="dots-button">
-        <span class="remove-button><i id="item-${todo.index}" class="fas fa-trash"></i></span>
+        <span class="remove-button"><i id="item-${todo.index}" class="fas fa-trash"></i></span>
         <i class="fas fa-ellipsis-v"></i>
       </div> 
     </div>
