@@ -8,6 +8,13 @@ document.querySelector('.todo-new > input').addEventListener('keypress', (e) => 
   }
 });
 
+document.getElementById('clear-all').addEventListener('click', () => {
+  const todoList = document.getElementsByClassName('todo-item');
+  [...todoList].filter((todoItem) => todoItem.children[0].children[0].checked)
+    .forEach((item) => item.remove());
+    refreshLocalStorage();
+});
+
 export function addEditHandlers() {
   const todoList = document.getElementsByClassName('todo-item');
   for (let i = 0; i < todoList.length; i += 1) {
@@ -22,7 +29,7 @@ export function addButtonHandlers() {
   const todoList = document.getElementsByClassName('todo-item');
   for (let i = 0; i < todoList.length; i += 1) {
     let buttonElem = todoList[i].children[1].children[0];
-    buttonElem.addEventListener('click', (e) => { 
+    buttonElem.addEventListener('click', () => { 
       buttonElem.parentElement.parentElement.remove();
       refreshLocalStorage();
     });
@@ -64,6 +71,7 @@ export function addTodo(description) {
   setToLocalStorage(currentTodoList);
   appendToDOM(newTodo);
   dragAndDrop();
-
+  
   addEditHandlers();
+  addButtonHandlers();
 }

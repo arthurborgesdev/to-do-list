@@ -55,3 +55,12 @@ body {
   text-align: center;
   color: gray;
 }
+
+#clear-all {
+  text-decoration: none;
+  color: grey;
+}
+
+#clear-all:hover {
+  color: darkgray;
+}
