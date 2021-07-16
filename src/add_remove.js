@@ -2,6 +2,8 @@
 import { getFromLocalStorage, setToLocalStorage } from './storage.js';
 // eslint-disable-next-line
 import { dragAndDrop, refreshLocalStorage } from './drag_drop.js';
+// eslint-disable-next-line
+import statusUpdate from './status_update.js';
 
 export function addEditHandlers() {
   const todoList = document.getElementsByClassName('todo-item');
@@ -61,6 +63,7 @@ export function addTodo(description) {
   appendToDOM(newTodo);
   dragAndDrop();
 
+  statusUpdate();
   addEditHandlers();
   addButtonHandlers();
 }

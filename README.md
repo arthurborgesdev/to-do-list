@@ -8,6 +8,8 @@ The objective of this exercise so far is to display a list of things to do on th
 
 New features: Now it is possible to drag and drop items and to mark items as completed or not.
 
+Another new features: You can remove elements, add more elements, and remove all completed!
+
 ![screenshot](./screenshot.png)
 
 ## Built With
@@ -55,3 +57,4 @@ Give a ⭐️ if you like this project!
 - Microverse
 - Webpack documentation
 - Web documentation (W3Schools, MDN, Stack Overflow)
+- Friends, lots of great and awesome friends!
