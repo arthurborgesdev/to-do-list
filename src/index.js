@@ -1,29 +1,17 @@
 import './style.css';
-import dragAndDrop from './drag_drop.js';
+// eslint-disable-next-line
+import { dragAndDrop, sortIndex} from './drag_drop.js';
+// eslint-disable-next-line
 import { setToLocalStorage, getFromLocalStorage } from './storage.js';
 import statusUpdate from './status_update.js';
+// eslint-disable-next-line
+import { addEditHandlers, addButtonHandlers } from './add_remove.js';
 
 import '@fortawesome/fontawesome-free/js/fontawesome.js';
 import '@fortawesome/fontawesome-free/js/solid.js';
 import '@fortawesome/fontawesome-free/js/regular.js';
 
-const todo = [
-  {
-    description: 'Finish watching S.H.I.E.L.D season 2',
-    completed: false,
-    index: 0,
-  },
-  {
-    description: 'Win the Indigo League in Pokémon Yellow',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'Finish the course about NodeJS in Udemy',
-    completed: false,
-    index: 2,
-  },
-];
+const todo = [];
 
 const populateTodos = (todo, sort) => {
   let sortedTodo = [];
@@ -48,11 +36,12 @@ const populateTodos = (todo, sort) => {
       <div class="todo-item" draggable="true">
         <div>
           <input type="checkbox" name="item-${sortedTodo[i].index}" ${checkbox}>
-          <label for="item-${sortedTodo[i].index}" style="${style}"}>
-            ${sortedTodo[i].description}
+          <label for="item-${sortedTodo[i].index}" style="${style}" contenteditable=true>
+            ${sortedTodo[i].description} 
           </label>
         </div>
         <div class="dots-button">
+          <span class="remove-button"><i id="item-${sortedTodo[i].index}" class="fas fa-trash"></i></span>
           <i class="fas fa-ellipsis-v"></i>
         </div> 
       </div>
@@ -61,13 +50,18 @@ const populateTodos = (todo, sort) => {
 };
 
 window.addEventListener('load', () => {
-  const localStorageList = getFromLocalStorage('todo');
+  const localStorageList = getFromLocalStorage();
+
   if (localStorageList == null) {
     setToLocalStorage(todo, true);
     populateTodos(todo);
   } else {
-    populateTodos(localStorageList, false);
+    const sortedList = sortIndex(localStorageList);
+    populateTodos(sortedList, false);
   }
   dragAndDrop();
   statusUpdate();
+
+  addEditHandlers();
+  addButtonHandlers();
 });

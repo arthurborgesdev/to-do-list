@@ -1,7 +1,18 @@
+// eslint-disable-next-line
 import { setToLocalStorage } from './storage.js';
+// eslint-disable-next-line
 import statusUpdate from './status_update.js';
+// eslint-disable-next-line
+import { addButtonHandlers, addEditHandlers } from './add_remove.js';
 
 let dragSrcEl = null;
+
+export function sortIndex(list) {
+  for (let i = 0; i < list.length; i += 1) {
+    list[i].index = i;
+  }
+  return list;
+}
 
 function generateListFromDOM() {
   const list = document.getElementsByClassName('todo-item');
@@ -20,9 +31,11 @@ function generateListFromDOM() {
   return resultList;
 }
 
-function refreshLocalStorage() {
+export function refreshLocalStorage() {
   const resultList = generateListFromDOM();
-  setToLocalStorage(resultList);
+  const sortedList = sortIndex(resultList);
+
+  setToLocalStorage(sortedList);
 }
 
 function dragStart(e) {
@@ -94,12 +107,14 @@ function drop(e) {
     }
   }
 
+  addButtonHandlers();
+  addEditHandlers();
   statusUpdate();
   refreshLocalStorage();
   return false;
 }
 
-export default function dragAndDrop() {
+export function dragAndDrop() {
   const todoItems = document.getElementsByClassName('todo-item');
   [...todoItems].forEach((todoItem) => {
     todoItem.addEventListener('dragstart', dragStart, false);

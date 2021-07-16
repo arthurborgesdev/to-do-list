@@ -29,8 +29,12 @@ body {
   font-size: 16px;
 }
 
-.dots-button:hover {
+.fa-ellipsis-v:hover {
   cursor: move;
+}
+
+.fa-trash:hover {
+  cursor: pointer;
 }
 
 .todo-new input {
@@ -54,4 +58,13 @@ body {
   padding: 16px;
   text-align: center;
   color: gray;
+}
+
+#clear-all {
+  text-decoration: none;
+  color: grey;
+}
+
+#clear-all:hover {
+  color: darkgray;
 }
