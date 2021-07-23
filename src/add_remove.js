@@ -19,7 +19,7 @@ export function addButtonHandlers() {
   const buttons = document.getElementsByClassName('remove-button');
   for (let i = 0; i < buttons.length; i += 1) {
     buttons[i].addEventListener('click', (e) => {
-      let inputItem = e.currentTarget;
+      const inputItem = e.currentTarget;
       inputItem.parentElement.parentElement.remove();
       refreshLocalStorage();
     });
