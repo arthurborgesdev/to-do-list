@@ -70,12 +70,6 @@ function drop(e) {
       .getAttribute('name')
       .split('-')[1];
 
-    const checkedSource = dragSrcEl.children[0]
-      .children[0].checked;
-
-    const checkedDestiny = dropDestEl.children[0]
-      .children[0].checked;
-
     dragSrcEl.innerHTML = dropDestEl.innerHTML;
     dropDestEl.innerHTML = e.dataTransfer.getData('text/html');
 
@@ -96,15 +90,6 @@ function drop(e) {
     dropDestEl.children[0]
       .children[1]
       .setAttribute('for', `item-${currentId}`);
-
-    // Set checked attribute
-    if (checkedSource === true && checkedDestiny === false) {
-      dragSrcEl.children[0].children[0].checked = false;
-      dropDestEl.children[0].children[0].checked = true;
-    } else if (checkedSource === false && checkedDestiny === true) {
-      dragSrcEl.children[0].children[0].checked = true;
-      dropDestEl.children[0].children[0].checked = false;
-    }
   }
 
   addButtonHandlers();
