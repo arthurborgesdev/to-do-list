@@ -60,53 +60,9 @@ function drop(e) {
   const dropDestEl = e.currentTarget;
 
   if (dragSrcEl !== dropDestEl) {
-    const currentId = dragSrcEl.children[0]
-      .children[0]
-      .getAttribute('name')
-      .split('-')[1];
-
-    const destinyId = dropDestEl.children[0]
-      .children[0]
-      .getAttribute('name')
-      .split('-')[1];
-
-    const checkedSource = dragSrcEl.children[0]
-      .children[0].checked;
-
-    const checkedDestiny = dropDestEl.children[0]
-      .children[0].checked;
-
     dragSrcEl.innerHTML = dropDestEl.innerHTML;
     dropDestEl.innerHTML = e.dataTransfer.getData('text/html');
-
-    // Set values for source element
-    dragSrcEl.children[0]
-      .children[0]
-      .setAttribute('name', `item-${destinyId}`);
-
-    dragSrcEl.children[0]
-      .children[1]
-      .setAttribute('for', `item-${destinyId}`);
-
-    // Set values for destiny element
-    dropDestEl.children[0]
-      .children[0]
-      .setAttribute('name', `item-${currentId}`);
-
-    dropDestEl.children[0]
-      .children[1]
-      .setAttribute('for', `item-${currentId}`);
-
-    // Set checked attribute
-    if (checkedSource === true && checkedDestiny === false) {
-      dragSrcEl.children[0].children[0].checked = false;
-      dropDestEl.children[0].children[0].checked = true;
-    } else if (checkedSource === false && checkedDestiny === true) {
-      dragSrcEl.children[0].children[0].checked = true;
-      dropDestEl.children[0].children[0].checked = false;
-    }
   }
-
   addButtonHandlers();
   addEditHandlers();
   statusUpdate();
