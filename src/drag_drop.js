@@ -60,38 +60,9 @@ function drop(e) {
   const dropDestEl = e.currentTarget;
 
   if (dragSrcEl !== dropDestEl) {
-    const currentId = dragSrcEl.children[0]
-      .children[0]
-      .getAttribute('name')
-      .split('-')[1];
-
-    const destinyId = dropDestEl.children[0]
-      .children[0]
-      .getAttribute('name')
-      .split('-')[1];
-
     dragSrcEl.innerHTML = dropDestEl.innerHTML;
     dropDestEl.innerHTML = e.dataTransfer.getData('text/html');
-
-    // Set values for source element
-    dragSrcEl.children[0]
-      .children[0]
-      .setAttribute('name', `item-${destinyId}`);
-
-    dragSrcEl.children[0]
-      .children[1]
-      .setAttribute('for', `item-${destinyId}`);
-
-    // Set values for destiny element
-    dropDestEl.children[0]
-      .children[0]
-      .setAttribute('name', `item-${currentId}`);
-
-    dropDestEl.children[0]
-      .children[1]
-      .setAttribute('for', `item-${currentId}`);
   }
-
   addButtonHandlers();
   addEditHandlers();
   statusUpdate();

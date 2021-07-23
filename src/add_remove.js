@@ -18,9 +18,8 @@ export function addEditHandlers() {
 export function addButtonHandlers() {
   const buttons = document.getElementsByClassName('remove-button');
   for (let i = 0; i < buttons.length; i += 1) {
-    buttons[i].addEventListener('click', () => {
-      const index = `item-${i}`;
-      const inputItem = document.getElementsByName(index)[0];
+    buttons[i].addEventListener('click', (e) => {
+      let inputItem = e.currentTarget;
       inputItem.parentElement.parentElement.remove();
       refreshLocalStorage();
     });
