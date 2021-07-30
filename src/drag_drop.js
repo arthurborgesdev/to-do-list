@@ -41,7 +41,7 @@ export function refreshLocalStorage() {
 function dragStart(e) {
   this.style.opacity = '0.4';
   dragSrcEl = e.currentTarget;
-
+  // console.log(typeof(dragSrcEl));
   e.dataTransfer.effectAllowed = 'move';
   e.dataTransfer.setData('text/html', dragSrcEl.innerHTML);
 }
