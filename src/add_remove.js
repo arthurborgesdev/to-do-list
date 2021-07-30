@@ -11,6 +11,7 @@ export function addEditHandlers() {
     const labelElem = todoList[i].children[0].children[1];
     labelElem.addEventListener('input', () => {
       refreshLocalStorage();
+      // console.log(typeof(refreshLocalStorage()));
     });
   }
 }
@@ -24,6 +25,7 @@ export function addButtonHandlers() {
       refreshLocalStorage();
     });
   }
+  // console.log(typeof(buttons));
 }
 
 function appendToDOM(todo) {
